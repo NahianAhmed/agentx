@@ -36,6 +36,8 @@ interface ChatAgentService {
         Always use tools when possible instead of saying you cannot do something.
         Be concise and helpful in your responses.
         Explain which tool you're using and provide the results clearly.
+
+        Remember the conversation context to provide better responses.
     """)
     fun chat(@UserMessage message: String): String
 }

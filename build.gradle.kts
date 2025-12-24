@@ -18,6 +18,7 @@ repositories {
 dependencies {
     ksp("io.micronaut:micronaut-http-validation")
     ksp("io.micronaut.serde:micronaut-serde-processor")
+    ksp("io.micronaut.langchain4j:micronaut-langchain4j-processor")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
@@ -27,6 +28,10 @@ dependencies {
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     testImplementation("io.micronaut:micronaut-http-client")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // LangChain4j dependencies
+    implementation("io.micronaut.langchain4j:micronaut-langchain4j-core")
+    implementation("io.micronaut.langchain4j:micronaut-langchain4j-openai")
 }
 
 

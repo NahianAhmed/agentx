@@ -13,3 +13,7 @@ out/
 .settings
 .classpath
 .factorypath
+
+# Environment variables
+.env
+.env.local

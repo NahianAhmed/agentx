@@ -2,21 +2,17 @@ package com.agentx.controller
 
 import com.agentx.dto.ChatRequest
 import com.agentx.dto.ChatResponse
-import com.agentx.service.ChatMemoryService
+import com.agentx.facade.ChatConversationFacade
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Delete
-import io.micronaut.http.annotation.PathVariable
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.*
 import org.slf4j.LoggerFactory
-import java.util.UUID
+import java.util.*
 
 @Controller("/api/chat")
 @Suppress("MnInjectionPoints")
 class ChatController(
-    private val chatMemoryService: ChatMemoryService
+    private val chatConversationFacade: ChatConversationFacade
 ) {
     private val logger = LoggerFactory.getLogger(ChatController::class.java)
 
@@ -35,7 +31,7 @@ class ChatController(
             logger.info("Processing chat request for conversation: $conversationTitleId")
 
             // Process the chat request with memory and semantic search
-            val response = chatMemoryService.chat(conversationTitleId, request.message)
+            val response = chatConversationFacade.chat(conversationTitleId, request.message)
 
             logger.info("Successfully processed chat request for conversation: $conversationTitleId")
 
@@ -65,7 +61,7 @@ class ChatController(
             UUID.fromString(conversationId)
 
             logger.info("Clearing conversation: $conversationId")
-            chatMemoryService.clearConversation(conversationId)
+            chatConversationFacade.clearConversation(conversationId)
 
             HttpResponse.ok(mapOf("message" to "Conversation cleared successfully"))
         } catch (e: IllegalArgumentException) {

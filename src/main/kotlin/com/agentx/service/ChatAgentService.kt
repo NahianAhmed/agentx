@@ -1,22 +1,18 @@
 package com.agentx.service
 
-import com.agentx.tools.CalculatorTools
-import com.agentx.tools.DateTimeTools
-import com.agentx.tools.StringTools
+import dev.langchain4j.service.MemoryId
 import dev.langchain4j.service.SystemMessage
 import dev.langchain4j.service.UserMessage
-import io.micronaut.langchain4j.annotation.AiService
 
-@AiService(
-    tools = [
-        CalculatorTools::class,
-        DateTimeTools::class,
-        StringTools::class
-    ]
-)
+/**
+ * AI Service interface for chat interactions.
+ * NOTE: This is NOT annotated with @AiService because we manually build it
+ * in ChatMemoryConfiguration to properly wire ChatMemoryProvider.
+ */
 interface ChatAgentService {
 
-    @SystemMessage("""
+    @SystemMessage(
+        """
         You are a helpful AI assistant with access to various tools.
 
         IMPORTANT: You MUST use the available tools when users ask for:
@@ -38,6 +34,10 @@ interface ChatAgentService {
         Explain which tool you're using and provide the results clearly.
 
         Remember the conversation context to provide better responses.
-    """)
-    fun chat(@UserMessage message: String): String
+    """
+    )
+    fun chat(
+        @MemoryId conversationId: String,
+        @UserMessage message: String
+    ): String
 }

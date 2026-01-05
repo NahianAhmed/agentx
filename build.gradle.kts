@@ -19,6 +19,7 @@ dependencies {
     ksp("io.micronaut:micronaut-http-validation")
     ksp("io.micronaut.serde:micronaut-serde-processor")
     ksp("io.micronaut.langchain4j:micronaut-langchain4j-processor")
+    ksp("io.micronaut.data:micronaut-data-processor")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
@@ -28,10 +29,22 @@ dependencies {
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     testImplementation("io.micronaut:micronaut-http-client")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly("com.h2database:h2")
 
     // LangChain4j dependencies
     implementation("io.micronaut.langchain4j:micronaut-langchain4j-core")
     implementation("io.micronaut.langchain4j:micronaut-langchain4j-openai")
+    implementation("dev.langchain4j:langchain4j-open-ai")
+
+    // PostgreSQL & Micronaut Data
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.data:micronaut-data-jdbc")
+    runtimeOnly("org.postgresql:postgresql")
+
+    // Flyway for database migrations
+    implementation("io.micronaut.flyway:micronaut-flyway")
+    implementation("org.flywaydb:flyway-core:10.21.0")
+    implementation("org.flywaydb:flyway-database-postgresql:10.21.0")
 }
 
 
